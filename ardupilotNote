@@ -1,0 +1,8 @@
+// output any servo channels
+    SRV_Channels::calc_pwm();
+
+AP_MotorsSingle runs servo motors
+
+git add .
+git commit -m XXXXX
+git push 
