@@ -127,8 +127,11 @@ void AP_MotorsMatrix::output_to_motors()
 
     // send output to each motor
     for (i=0; i<AP_MOTORS_MAX_NUM_MOTORS; i++) {
-        if (motor_enabled[i]) {
+        if (motor_enabled[i] && i<4) {
             rc_write(i, motor_out[i]);
+        }
+        else {
+            rc_write(i, 1800);  //write PWMs to the port to servo motors
         }
     }
 }
@@ -387,6 +390,7 @@ void AP_MotorsMatrix::setup_motors(motor_frame_class frame_class, motor_frame_ty
                     add_motor(AP_MOTORS_MOT_2, -135, AP_MOTORS_MATRIX_YAW_FACTOR_CCW, 3);
                     add_motor(AP_MOTORS_MOT_3,  -45, AP_MOTORS_MATRIX_YAW_FACTOR_CW,  4);
                     add_motor(AP_MOTORS_MOT_4,  135, AP_MOTORS_MATRIX_YAW_FACTOR_CW,  2);
+                    motor_enabled[AP_MOTORS_MOT_5] = true; // enable motor 5 manually
                     success = true;
                     break;
                 case MOTOR_FRAME_TYPE_V:
